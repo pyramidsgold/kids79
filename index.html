@@ -3,8 +3,8 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>ميثاق | منهاج العدالة الأسرية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>ميثاق | السيادة للأصل والعدل للقسط</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,79 +15,107 @@
         --font-quran: 'Amiri', serif;
         --gold: #d4af37;
         --emerald: #059669;
+        --crimson: #dc2626;
+      }
+      * {
+        box-sizing: border-box;
+        scrollbar-width: thin;
+        scrollbar-color: var(--gold) transparent;
+      }
+      html {
+        scroll-behavior: smooth;
+        overscroll-behavior-y: none;
+        background-color: #000;
       }
       body {
         font-family: var(--font-ar);
-        background-color: #020202;
+        background-color: #000000;
         color: #f4f4f5;
         overflow-x: hidden;
-        perspective: 1200px;
+        perspective: 2000px;
+        -webkit-tap-highlight-color: transparent;
+        line-height: 1.6;
       }
       .quran-font {
         font-family: var(--font-quran);
       }
       .glass-effect {
-        background: rgba(10, 10, 10, 0.7);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: rgba(10, 10, 10, 0.9);
+        backdrop-filter: blur(40px) saturate(200%);
+        -webkit-backdrop-filter: blur(40px) saturate(200%);
         border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
       }
       .text-gradient-gold {
         background: linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #d4af37 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
-      .bg-islamic-pattern {
-        background-image: radial-gradient(circle at 2px 2px, rgba(212, 175, 55, 0.03) 1px, transparent 0);
-        background-size: 60px 60px;
+      .text-gradient-red {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      .preserve-3d {
-        transform-style: preserve-3d;
+      .bg-sovereign-pattern {
+        background-image: 
+          radial-gradient(circle at 1px 1px, rgba(212, 175, 55, 0.05) 1px, transparent 0),
+          linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(10,10,10,1) 100%);
+        background-size: 50px 50px, 100% 100%;
       }
-      .perspective-2000 {
-        perspective: 2000px;
-      }
-      /* Custom Scrollbar */
+      /* Custom Scrollbar for Desktop */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 4px;
       }
       ::-webkit-scrollbar-track {
-        background: #050505;
+        background: #000;
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--gold);
+        background: linear-gradient(to bottom, var(--gold), #111);
         border-radius: 10px;
       }
-      .shadow-gold {
-        box-shadow: 0 0 50px -10px rgba(212, 175, 55, 0.3);
+      .shadow-sovereign {
+        box-shadow: 0 0 100px -20px rgba(212, 175, 55, 0.1);
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      @keyframes float {
+      @keyframes float-sovereign {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-20px); }
       }
-      .selection\:bg-yellow-500\/30::selection {
-        background-color: rgba(234, 179, 8, 0.3);
+      .animate-float {
+        animation: float-sovereign 10s ease-in-out infinite;
+      }
+      .hashtag-scroll {
+        white-space: nowrap;
+        animation: scrollHashtags 40s linear infinite;
+        display: flex;
+        width: fit-content;
+      }
+      @keyframes scrollHashtags {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(33.33%); }
       }
     </style>
     <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react-dom": "https://esm.sh/react-dom@^19.2.4",
-    "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
-    "react-router-dom": "https://esm.sh/react-router-dom@^7.2.0",
-    "recharts": "https://esm.sh/recharts@^3.7.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "react/": "https://esm.sh/react@^19.2.4/"
-  }
-}
-</script>
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.2.4",
+        "react-dom": "https://esm.sh/react-dom@^19.2.4",
+        "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
+        "react-router-dom": "https://esm.sh/react-router-dom@^7.2.0",
+        "recharts": "https://esm.sh/recharts@^3.7.0",
+        "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/"
+      }
+    }
+    </script>
   </head>
-  <body class="bg-islamic-pattern">
+  <body class="bg-sovereign-pattern selection:bg-yellow-500/30">
     <div id="root"></div>
     <script type="module" src="index.tsx"></script>
   </body>
