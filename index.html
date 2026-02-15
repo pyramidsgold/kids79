@@ -52,6 +52,13 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
+      
+      /* تأثير التلاشي لحواف القائمة عند التمرير الأفقي */
+      .mask-fade-edges {
+        mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      }
+
       .text-gradient-gold {
         background: linear-gradient(135deg, #d4af37 0%, #fef08a 50%, #d4af37 100%);
         -webkit-background-clip: text;
@@ -71,6 +78,7 @@
       /* Custom Scrollbar for Desktop */
       ::-webkit-scrollbar {
         width: 4px;
+        height: 2px;
       }
       ::-webkit-scrollbar-track {
         background: #000;

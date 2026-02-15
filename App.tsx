@@ -64,7 +64,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress((scrollY / totalScroll) * 100);
+      setScrollProgress(totalScroll > 0 ? (scrollY / totalScroll) * 100 : 0);
       setIsScrolled(scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -78,46 +78,60 @@ const Navbar = () => {
   return (
     <>
       {/* 
-          SOVEREIGN HEADER (Desktop & Mobile) 
-          الموقع الآن موحد في القمة لضمان سهولة الاستخدام
+          UNIFIED SOVEREIGN HEADER 
+          نفس التصميم الفاخر لجميع أحجام الشاشات
       */}
-      <header className={`fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 px-4 py-4 md:px-8 md:py-6 ${isScrolled ? 'translate-y-0' : 'translate-y-0'}`}>
-        <div className={`max-w-7xl mx-auto flex items-center justify-between glass-effect rounded-[2.5rem] px-6 py-3 md:px-10 md:py-4 border transition-all duration-500 ${
+      <header className={`fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 px-4 py-4 md:px-8 md:py-6`}>
+        <div className={`max-w-7xl mx-auto flex items-center justify-between glass-effect rounded-[2rem] md:rounded-[2.5rem] px-4 py-2 md:px-8 md:py-4 border transition-all duration-500 shadow-2xl ${
           isScrolled 
-          ? 'border-yellow-500/40 bg-black/95 shadow-[0_20px_60px_rgba(0,0,0,0.9)] scale-[0.98]' 
-          : 'border-white/10 bg-black/40 shadow-2xl'
+          ? 'border-yellow-500/40 bg-black/95 scale-[0.98] shadow-[0_20px_60px_rgba(0,0,0,0.9)]' 
+          : 'border-white/10 bg-black/40'
         }`}>
-          {/* Logo Section */}
-          <Link to="/" className="flex items-center gap-3 md:gap-4 group">
-            <div className="w-10 h-10 md:w-14 md:h-14 bg-emerald-800 rounded-2xl flex items-center justify-center text-yellow-500 shadow-xl group-hover:rotate-[360deg] transition-all duration-700">
-              <Scale size={24} className="md:w-8 md:h-8" />
+          
+          {/* Logo Section - Consistent sizing */}
+          <Link to="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-800 rounded-xl md:rounded-2xl flex items-center justify-center text-yellow-500 shadow-xl group-hover:rotate-[360deg] transition-all duration-700">
+              <Scale size={20} className="md:w-6 md:h-6" />
             </div>
             <div className="flex flex-col text-right">
-              <span className="font-black text-white text-xl md:text-3xl tracking-tighter uppercase">{t.global.siteName}</span>
-              <span className="text-[8px] md:text-[10px] font-black text-yellow-500/80 uppercase tracking-[0.2em] mt-0.5">Sovereign Initiative 2025</span>
+              <span className="font-black text-white text-lg md:text-2xl tracking-tighter uppercase whitespace-nowrap">{t.global.siteName}</span>
+              <span className="text-[7px] md:text-[9px] font-black text-yellow-500/80 uppercase tracking-widest mt-0.5">Sovereign 2025</span>
             </div>
           </Link>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navItems.slice(0, 6).map((item) => (
-              <Link key={item.path} to={item.path} className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all border ${location.pathname === item.path ? 'bg-yellow-500 text-black border-yellow-500 shadow-lg' : 'text-zinc-400 hover:text-white border-transparent hover:bg-white/5'}`}>
-                {item.label}
-              </Link>
-            ))}
-            <div className="w-px h-6 bg-white/10 mx-2"></div>
-            <button onClick={() => setIsMenuOpen(true)} className="p-3 bg-white/5 rounded-xl text-yellow-500 hover:bg-yellow-500 hover:text-black transition-all">
-              <LayoutGrid size={20} />
-            </button>
+          {/* 
+              UNIFIED NAVIGATION ITEMS
+              تظهر بشكل أفقي على جميع الأجهزة مع دعم التمرير في الموبايل
+          */}
+          <div className="flex-1 flex items-center justify-end gap-2 overflow-hidden mr-4">
+             <div className="flex items-center gap-1 overflow-x-auto no-scrollbar scroll-smooth py-1 px-2 mask-fade-edges">
+                {navItems.slice(0, 6).map((item) => (
+                  <Link 
+                    key={item.path} 
+                    to={item.path} 
+                    className={`px-3 py-1.5 md:px-4 md:py-2 rounded-xl text-[9px] md:text-[10px] font-black transition-all border shrink-0 ${
+                      location.pathname === item.path 
+                      ? 'bg-yellow-500 text-black border-yellow-500 shadow-lg' 
+                      : 'text-zinc-400 hover:text-white border-transparent hover:bg-white/5'
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+             </div>
+             
+             <div className="w-px h-6 bg-white/10 mx-1 md:mx-2 shrink-0"></div>
+             
+             {/* Unified Portal Toggle */}
+             <button 
+                onClick={() => setIsMenuOpen(true)} 
+                className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center transition-all shrink-0 ${
+                  isMenuOpen ? 'bg-red-600 text-white' : 'bg-white/5 text-yellow-500 hover:bg-yellow-500 hover:text-black shadow-xl'
+                }`}
+             >
+                <LayoutGrid size={20} className="md:w-6 md:h-6" />
+             </button>
           </div>
-
-          {/* Mobile Menu Toggle */}
-          <button 
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-yellow-500 shadow-xl active:scale-90 transition-all"
-          >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
         </div>
 
         {/* Scroll Progress Bar (Subtle) */}
@@ -128,7 +142,7 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Full-Screen Sovereign Menu Overlay */}
+      {/* Full-Screen Sovereign Menu Overlay (The deep access portal) */}
       <div 
         className={`fixed inset-0 z-[10000] bg-black/98 backdrop-blur-[80px] transition-all duration-700 ${
           isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'
@@ -140,7 +154,7 @@ const Navbar = () => {
               <div className="w-24 h-24 bg-emerald-800 rounded-[2.5rem] flex items-center justify-center text-yellow-500 mx-auto shadow-4xl mb-6">
                 <LayoutGrid size={48} />
               </div>
-              <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase">بوابة السيادة</h2>
+              <h2 className="text-4xl md:text-7xl font-black text-white tracking-tighter uppercase">بوابة السيادة الموحدة</h2>
               <div className="h-1 w-20 bg-yellow-500 mx-auto rounded-full"></div>
             </div>
 
@@ -155,7 +169,7 @@ const Navbar = () => {
                     ? 'bg-yellow-500 text-black border-yellow-500 shadow-2xl' 
                     : 'bg-white/5 text-zinc-400 border-white/5 hover:border-white/20 hover:bg-white/10'
                   }`}
-                  style={{ transitionDelay: `${idx * 30}ms` }}
+                  style={{ transitionDelay: `${idx * 20}ms` }}
                 >
                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-colors shadow-2xl ${
                      location.pathname === item.path ? 'bg-black/10' : 'bg-black/40 text-yellow-500'
@@ -164,21 +178,15 @@ const Navbar = () => {
                    </div>
                    <div className="flex flex-col">
                      <span className="text-xl font-black">{item.label}</span>
-                     <span className="text-[8px] font-bold uppercase opacity-50 tracking-widest mt-1">Sovereign Access</span>
+                     <span className="text-[8px] font-bold uppercase opacity-50 tracking-widest mt-1">Sovereign Portal</span>
                    </div>
                 </Link>
               ))}
             </div>
 
-            {/* Menu Footer Boundary */}
             <div className="pt-20 border-t border-white/5 flex flex-col items-center gap-8">
-               <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-zinc-600 border border-white/5"><Info size={20} /></div>
-                  <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-zinc-600 border border-white/5"><Shield size={20} /></div>
-                  <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-zinc-600 border border-white/5"><Settings size={20} /></div>
-               </div>
-               <p className="text-zinc-700 text-[10px] font-black uppercase tracking-[0.5em]">الإصدار 3.2.0 - 2025</p>
-               <button onClick={() => setIsMenuOpen(false)} className="px-10 py-4 bg-red-600 text-white rounded-full font-black text-xl shadow-4xl hover:bg-red-700 transition-all">إغلاق القائمة</button>
+               <button onClick={() => setIsMenuOpen(false)} className="px-12 py-4 bg-red-600 text-white rounded-full font-black text-xl shadow-4xl hover:scale-105 transition-all">إغلاق البوابة</button>
+               <p className="text-zinc-700 text-[10px] font-black uppercase tracking-[0.5em]">الإصدار السيادي 3.5.1</p>
             </div>
           </div>
         </div>
@@ -198,11 +206,8 @@ const App: React.FC = () => {
           <Navbar />
           <AnisBot />
           
-          {/* 
-              MAIN CONTENT CONTAINER 
-              تم تصحيح الأبعاد لضمان ظهور المحتوى تماماً تحت القائمة العلوية
-          */}
-          <main className="flex-1 pt-32 md:pt-44 pb-20 overflow-x-hidden">
+          {/* Main Content Padding Adjusted for unified nav bar height */}
+          <main className="flex-1 pt-24 md:pt-40 pb-20 overflow-x-hidden">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
