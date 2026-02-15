@@ -78,17 +78,17 @@ const Navbar = () => {
   return (
     <>
       {/* 
-          UNIFIED SOVEREIGN HEADER 
-          نفس التصميم الفاخر لجميع أحجام الشاشات
+          UNIFIED SOVEREIGN HEADER - NON-TRANSPARENT ON MOBILE
+          القائمة الآن معتمة بالكامل في الموبايل وشفافة اختيارياً في الديسك توب
       */}
       <header className={`fixed top-0 left-0 right-0 z-[5000] transition-all duration-500 px-4 py-4 md:px-8 md:py-6`}>
-        <div className={`max-w-7xl mx-auto flex items-center justify-between glass-effect rounded-[2rem] md:rounded-[2.5rem] px-4 py-2 md:px-8 md:py-4 border transition-all duration-500 shadow-2xl ${
+        <div className={`max-w-7xl mx-auto flex items-center justify-between rounded-[2rem] md:rounded-[2.5rem] px-4 py-2 md:px-8 md:py-4 border transition-all duration-500 shadow-2xl ${
           isScrolled 
-          ? 'border-yellow-500/40 bg-black/95 scale-[0.98] shadow-[0_20px_60px_rgba(0,0,0,0.9)]' 
-          : 'border-white/10 bg-black/40'
+          ? 'border-yellow-500/40 bg-zinc-950 md:bg-black/95 scale-[0.98] shadow-[0_20px_60px_rgba(0,0,0,0.9)]' 
+          : 'border-white/10 bg-zinc-950 md:bg-black/40 md:backdrop-blur-[40px]'
         }`}>
           
-          {/* Logo Section - Consistent sizing */}
+          {/* Logo Section */}
           <Link to="/" className="flex items-center gap-2 md:gap-4 group shrink-0">
             <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-800 rounded-xl md:rounded-2xl flex items-center justify-center text-yellow-500 shadow-xl group-hover:rotate-[360deg] transition-all duration-700">
               <Scale size={20} className="md:w-6 md:h-6" />
@@ -101,9 +101,9 @@ const Navbar = () => {
 
           {/* 
               UNIFIED NAVIGATION ITEMS
-              تظهر بشكل أفقي على جميع الأجهزة مع دعم التمرير في الموبايل
+              أسلوب سطح المكتب الموحد مع خلفية معتمة في الموبايل
           */}
-          <div className="flex-1 flex items-center justify-end gap-2 overflow-hidden mr-4">
+          <div className="flex-1 flex items-center justify-end gap-2 overflow-hidden mr-2 md:mr-4">
              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar scroll-smooth py-1 px-2 mask-fade-edges">
                 {navItems.slice(0, 6).map((item) => (
                   <Link 
@@ -112,7 +112,7 @@ const Navbar = () => {
                     className={`px-3 py-1.5 md:px-4 md:py-2 rounded-xl text-[9px] md:text-[10px] font-black transition-all border shrink-0 ${
                       location.pathname === item.path 
                       ? 'bg-yellow-500 text-black border-yellow-500 shadow-lg' 
-                      : 'text-zinc-400 hover:text-white border-transparent hover:bg-white/5'
+                      : 'text-zinc-400 hover:text-white border-transparent hover:bg-white/10'
                     }`}
                   >
                     {item.label}
@@ -126,7 +126,7 @@ const Navbar = () => {
              <button 
                 onClick={() => setIsMenuOpen(true)} 
                 className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center transition-all shrink-0 ${
-                  isMenuOpen ? 'bg-red-600 text-white' : 'bg-white/5 text-yellow-500 hover:bg-yellow-500 hover:text-black shadow-xl'
+                  isMenuOpen ? 'bg-red-600 text-white' : 'bg-white/10 text-yellow-500 hover:bg-yellow-500 hover:text-black shadow-xl'
                 }`}
              >
                 <LayoutGrid size={20} className="md:w-6 md:h-6" />
@@ -134,7 +134,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Scroll Progress Bar (Subtle) */}
+        {/* Scroll Progress Bar */}
         <div className="max-w-7xl mx-auto px-10 mt-2">
            <div className="h-0.5 w-full bg-white/5 rounded-full overflow-hidden">
              <div className="h-full bg-yellow-500 transition-all duration-300" style={{ width: `${scrollProgress}%` }} />
@@ -142,11 +142,11 @@ const Navbar = () => {
         </div>
       </header>
 
-      {/* Full-Screen Sovereign Menu Overlay (The deep access portal) */}
+      {/* Full-Screen Sovereign Menu Overlay - SOLID BLACK ON MOBILE */}
       <div 
-        className={`fixed inset-0 z-[10000] bg-black/98 backdrop-blur-[80px] transition-all duration-700 ${
+        className={`fixed inset-0 z-[10000] transition-all duration-700 ${
           isMenuOpen ? 'opacity-100 pointer-events-auto translate-y-0' : 'opacity-0 pointer-events-none -translate-y-full'
-        }`}
+        } bg-black md:bg-black/98 md:backdrop-blur-[80px]`}
       >
         <div className="h-full flex flex-col pt-32 pb-20 px-6 overflow-y-auto no-scrollbar">
           <div className="max-w-4xl mx-auto w-full space-y-12">
@@ -206,7 +206,6 @@ const App: React.FC = () => {
           <Navbar />
           <AnisBot />
           
-          {/* Main Content Padding Adjusted for unified nav bar height */}
           <main className="flex-1 pt-24 md:pt-40 pb-20 overflow-x-hidden">
             <Routes>
               <Route path="/" element={<HomePage />} />
